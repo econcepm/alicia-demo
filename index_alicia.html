@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alic.ia - Asistente Legal Interactivo y Colaborativo</title>
+    <link rel="stylesheet" href="static/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --accent: #e74c3c;
+            --light: #f8f9fa;
+            --dark: #2c3e50;
+            --text: #333;
+            --text-light: #6c757d;
+            --border-radius: 8px;
+            --box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f5f7fa;
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--primary);
+        }
+
+        .logo-icon {
+            color: var(--secondary);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover {
+            color: var(--secondary);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--primary);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 100px 0;
+            background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+            color: white;
+            text-align: center;
+            border-radius: 0 0 30px 30px;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 30px;
+            opacity: 0.9;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background-color: var(--accent);
+            color: white;
+            padding: 15px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: var(--transition);
+            box-shadow: 0 4px 15px rgba(231, 76, 60, 0.3);
+        }
+
+        .cta-button:hover {
+            background-color: #c0392b;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(231, 76, 60, 0.4);
+        }
+
+        /* Features Section */
+        .features {
+            padding: 100px 0;
+            background-color: white;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+
+        .section-title p {
+            color: var(--text-light);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .feature-card {
+            background-color: white;
+            border-radius: var(--border-radius);
+            padding: 30px;
+            box-shadow: var(--box-shadow);
+            transition: var(--transition);
+            text-align: center;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            color: var(--secondary);
+            margin-bottom: 20px;
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--primary);
+        }
+
+        /* Knowledge Sources */
+        .sources {
+            padding: 100px 0;
+            background-color: #f5f7fa;
+        }
+
+        .sources-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .source-item {
+            background-color: white;
+            padding: 25px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            transition: var(--transition);
+        }
+
+        .source-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .source-icon {
+            font-size: 1.5rem;
+            color: var(--secondary);
+            background-color: rgba(52, 152, 219, 0.1);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Benefits Section */
+        .benefits {
+            padding: 100px 0;
+            background-color: white;
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .benefit-card {
+            background-color: white;
+            border-radius: var(--border-radius);
+            padding: 30px;
+            box-shadow: var(--box-shadow);
+            transition: var(--transition);
+            border-left: 4px solid var(--secondary);
+        }
+
+        .benefit-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .benefit-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            color: var(--primary);
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 100px 0;
+            background: linear-gradient(135deg, #3498db 0%, #2c3e50 100%);
+            color: white;
+            text-align: center;
+            border-radius: 30px 30px 0 0;
+        }
+
+        .cta-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .cta-section p {
+            max-width: 700px;
+            margin: 0 auto 30px;
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--primary);
+            color: white;
+            padding: 60px 0 30px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-column h3 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 40px;
+            height: 3px;
+            background-color: var(--secondary);
+        }
+
+        .footer-column p {
+            margin-bottom: 15px;
+            opacity: 0.8;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            opacity: 0.8;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            opacity: 1;
+            padding-left: 5px;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            opacity: 0.7;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .section-title h2 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <div class="logo">
+                    <i class="fas fa-balance-scale logo-icon"></i>
+                    <span>Alic.ia</span>
+                </div>
+                <div class="nav-links">
+                    <a href="#features">Características</a>
+                    <a href="#sources">Fuentes</a>
+                    <a href="#benefits">Beneficios</a>
+                    <a href="#contact">Contacto</a>
+                </div>
+                <button class="mobile-menu-btn">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Tu Asistente Legal Interactivo y Colaborativo</h1>
+            <p>¡Bienvenido! Soy Alic.ia, un sistema inteligente creado para responder preguntas sobre Derecho Penal, Derecho Civil y Derecho Empresarial cubano.</p>
+            <a href="#contact" class="cta-button">Comenzar Ahora</a>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="container">
+            <div class="section-title">
+                <h2>Especializado en Derecho Cubano</h2>
+                <p>Dirigido a juristas, estudiantes de derecho y ciudadanos que buscan orientación confiable y actualizada</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <i class="fas fa-gavel feature-icon"></i>
+                    <h3>Derecho Penal</h3>
+                    <p>Asistencia especializada en normativas penales, procesos judiciales y defensa legal.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-handshake feature-icon"></i>
+                    <h3>Derecho Civil</h3>
+                    <p>Orientación en materia de derechos civiles, contratos, familia y sucesiones.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-briefcase feature-icon"></i>
+                    <h3>Derecho Empresarial</h3>
+                    <p>Asesoría legal para empresas, emprendimientos y entornos profesionales.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Knowledge Sources -->
+    <section class="sources" id="sources">
+        <div class="container">
+            <div class="section-title">
+                <h2>Fundamentos de Conocimiento</h2>
+                <p>Mi conocimiento se fundamenta en un amplio conjunto de fuentes legales confiables</p>
+            </div>
+            <div class="sources-grid">
+                <div class="source-item">
+                    <div class="source-icon">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <div>
+                        <h3>Textos Científicos</h3>
+                        <p>Autores nacionales y extranjeros</p>
+                    </div>
+                </div>
+                <div class="source-item">
+                    <div class="source-icon">
+                        <i class="fas fa-file-contract"></i>
+                    </div>
+                    <div>
+                        <h3>Leyes y Decretos</h3>
+                        <p>Leyes, Decretos-Leyes y Decretos vigentes</p>
+                    </div>
+                </div>
+                <div class="source-item">
+                    <div class="source-icon">
+                        <i class="fas fa-file-alt"></i>
+                    </div>
+                    <div>
+                        <h3>Resoluciones</h3>
+                        <p>Resoluciones Ministeriales</p>
+                    </div>
+                </div>
+                <div class="source-item">
+                    <div class="source-icon">
+                        <i class="fas fa-balance-scale"></i>
+                    </div>
+                    <div>
+                        <h3>Jurisprudencia</h3>
+                        <p>Sentencias del Tribunal Supremo Popular</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefits Section -->
+    <section class="benefits" id="benefits">
+        <div class="container">
+            <div class="section-title">
+                <h2>¿Cómo Puedo Ayudarte?</h2>
+                <p>Mi compromiso es ofrecerte respuestas precisas, fundamentadas y contextualizadas</p>
+            </div>
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <h3>Comprender Normas Jurídicas</h3>
+                    <p>Te ayudo a comprender y aplicar normas jurídicas en diferentes contextos legales.</p>
+                </div>
+                <div class="benefit-card">
+                    <h3>Facilitar Investigación</h3>
+                    <p>Facilito la investigación académica y el debate científico en el ámbito legal.</p>
+                </div>
+                <div class="benefit-card">
+                    <h3>Apoyar Decisiones</h3>
+                    <p>Apoyo la toma de decisiones en entornos profesionales y empresariales.</p>
+                </div>
+                <div class="benefit-card">
+                    <h3>Acceso a Derechos</h3>
+                    <p>Brindo a los ciudadanos acceso claro a sus derechos y deberes legales.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section" id="contact">
+        <div class="container">
+            <h2>Tu Asistente Legal Interactivo</h2>
+            <p>Soy tu asistente legal interactivo y colaborativo en el universo del derecho cubano. ¿Tienes alguna consulta legal?</p>
+            <a href="#contact" class="cta-button">Consultar Ahora</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Sobre Alic.ia</h3>
+                    <p>Asistente legal inteligente especializado en Derecho Penal, Civil y Empresarial cubano.</p>
+                    <p>Orientado a juristas, estudiantes y ciudadanos en busca de orientación legal confiable.</p>
+                </div>
+                <div class="footer-column">
+                    <h3>Enlaces Rápidos</h3>
+                    <ul class="footer-links">
+                        <li><a href="#features">Características</a></li>
+                        <li><a href="#sources">Fuentes de Conocimiento</a></li>
+                        <li><a href="#benefits">Beneficios</a></li>
+                        <li><a href="#contact">Consultas Legales</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Áreas de Especialización</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Derecho Penal Cubano</a></li>
+                        <li><a href="#">Derecho Civil</a></li>
+                        <li><a href="#">Derecho Empresarial</a></li>
+                        <li><a href="#">Jurisprudencia</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contacto</h3>
+                    <p><i class="fas fa-envelope"></i> info@alicia-legal.com</p>
+                    <p><i class="fas fa-phone"></i> +53 123 456 789</p>
+                    <p><i class="fas fa-map-marker-alt"></i> La Habana, Cuba</p>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 Alic.ia - Asistente Legal Inteligente. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Simple mobile menu toggle
+        document.querySelector('.mobile-menu-btn').addEventListener('click', function() {
+            const navLinks = document.querySelector('.nav-links');
+            navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Close mobile menu if open
+                    if (window.innerWidth <= 768) {
+                        document.querySelector('.nav-links').style.display = 'none';
+                    }
+                }
+            });
+        });
+
+        // Adjust mobile menu on window resize
+        window.addEventListener('resize', function() {
+            if (window.innerWidth > 768) {
+                document.querySelector('.nav-links').style.display = 'flex';
+            } else {
+                document.querySelector('.nav-links').style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
